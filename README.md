@@ -55,6 +55,25 @@ go test -v
 
 - `-file`: Specify the input Markdown file (required)
 - `-s`: Skip auto-preview in browser
+- `-t`: Specify an alternate HTML template file
+
+### Template Customization
+
+The tool supports custom HTML templates for rendering the markdown content. Two template files are provided:
+
+- `template.html.tmpl`: Basic HTML template
+- `template-fmt.html.tmpl`: Template with custom styling (blue headers)
+
+To use a custom template:
+
+```bash
+./mdp -file=your_markdown_file.md -t=template-fmt.html.tmpl
+```
+
+Template variables available:
+
+- `{{ .Title }}`: The title of the document
+- `{{ .Body }}`: The converted HTML content
 
 ### Auto-Preview Mode
 
@@ -83,3 +102,26 @@ The script will check for changes every 5 seconds and update the preview automat
 6. Cleans up the temporary file after preview
 
 The generated HTML includes proper DOCTYPE and HTML structure for optimal rendering.
+
+### Running with Python HTTP Server
+
+You can also use Python's built-in HTTP server to view the generated HTML files:
+
+1. Generate the HTML file:
+
+   ```bash
+   ./mdp -file=your_markdown_file.md -s
+   ```
+
+2. Start Python's HTTP server:
+
+   ```bash
+   python3 -m http.server 8000
+   ```
+
+3. Open your browser and navigate to:
+   ```
+   http://localhost:8000/mdpPreview.html
+   ```
+
+This is particularly useful when you want to serve the preview over a network or need to refresh the page manually.
